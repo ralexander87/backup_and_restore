@@ -1,34 +1,34 @@
 #!/bin/bash
+
 set -e
 
-FOOB="/run/media/ralexander/NC512/home"
-BKP_FOLDER="$FOOB/Srv"
+USB="/run/media/ralexander/NC512/home"
+SRV="$USB/dots/Srv"
 DIRS=(Documents Pictures Obsidian Working Shared VM)
+DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
 
 for d in "${DIRS[@]}"; do
-  rsync -Parh "$HOME/$d" "$FOOB"
+  rsync -Parh "$HOME/$d" "$USB"
 done
 
-rsync -Parh "$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/" "$FOOB/dots/"
-rsync -Prah "$HOME/.ssh" "$BKP_FOLDER"
-cp ~/Working/bash/bkp-home.sh "$FOOB/dots"
-cp ~/Working/bash/restore-home.sh "$FOOB"
-cp ~/Working/bash/restore-zshrc.sh "$FOOB/dots"
-cp ~/Working/bash/restore-dots.sh "$FOOB/dots"
-cp ~/Working/bash/restore-serv.sh "$BKP_FOLDER"
-cp ~/Working/bash/restore-serv.sh "$FOOB/Srv"
+rsync -Parh "$DOTS" "$USB/dots/"
+rsync -Prah "$HOME/.ssh" "$SRV"
+cp ~/Working/bash/restore-home.sh "$USB"
+cp ~/Working/bash/restore-zshrc.sh "$USB/dots"
+cp ~/Working/bash/restore-dots.sh "$USB/dots"
+cp ~/Working/bash/restore-serv.sh "$SRV"
 
 echo "Copy Done..."
 sleep 5 ; clear
 
 # === System files (with sudo) ===
 declare -A SYSTEM_PATHS=(
-  ["/boot/grub/themes/lateralus"]="$BKP_FOLDER"
-  ["/etc/mkinitcpio.conf"]="$BKP_FOLDER/mkinitcpio.conf"
-  ["/etc/default/grub"]="$BKP_FOLDER/grub"
-  ["/usr/share/plymouth/plymouthd.defaults"]="$BKP_FOLDER/plymouthd.defaults"
-  ["/etc/samba/smb.conf"]="$BKP_FOLDER/smb.conf"
-  ["/etc/ssh/sshd_config"]="$BKP_FOLDER/sshd_config"
+  ["/boot/grub/themes/lateralus"]="$SRV"
+  ["/etc/mkinitcpio.conf"]="$SRV/mkinitcpio.conf"
+  ["/etc/default/grub"]="$SRV/grub"
+  ["/usr/share/plymouth/plymouthd.defaults"]="$SRV/plymouthd.defaults"
+  ["/etc/samba/smb.conf"]="$SRV/smb.conf"
+  ["/etc/ssh/sshd_config"]="$SRV/sshd_config"
 )
 
 for src in "${!SYSTEM_PATHS[@]}"; do

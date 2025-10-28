@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BAR="$HOME/Srv"
+SRV="$HOME/dots/Srv"
 
 ##### Services #####
 set -u
@@ -56,18 +56,15 @@ ensure_pacman_packages \
 
 ##### SMB/SAMBA #####
 sudo modprobe cifs
+sudo cp "$SRV/smb.conf" "/etc/samba"
 sudo systemctl enable wsdd.service smb.service avahi-daemon.service nmb.service && sudo systemctl start wsdd.service smb.service avahi-daemon.service nmb.service
-sudo mv "$HOME/etc/samba/smb.conf{,.bkp}" && sudo cp "$BAR/smb.conf" "$HOME/etc/samba"
-sudo systemctl restart wsdd.service smb.service avahi-daemon.service nmb.service
 
 ##### SSH #####
-
-rsync -Parh -r "$BAR/.ssh" "$HOME/.ssh"
+rsync -Parh "$SRV/.ssh/" "$HOME/.ssh"
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 chmod 644 ~/.ssh/*.pub
 chmod 600 ~/.ssh/config
+sudo mv "/etc/ssh/sshd_config{,.bkp}" && sudo cp "$SRV/sshd_config" "/etc/ssh"
 sudo systemctl enable sshd.service && sudo systemctl start sshd.service
-sudo mv "$HOME/etc/ssh/sshd_config{,.bkp}" && sudo cp "$BAR/sshd_config" "$HOME/etc/ssh"
-sudo systemctl restart sshd.service
 

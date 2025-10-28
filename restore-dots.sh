@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FOO="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
-HYPR="$FOO/hypr/conf"
+DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
+HYPR="$DOTS/hypr/conf"
 SRC="$HOME/dots"
 
 ##### PRE INSTALL TODO #####
@@ -71,21 +71,25 @@ ensure_pacman_packages \
 ### Delete flatpak app
 flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
 
+DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
+HYPR="$DOTS/hypr/conf"
+SRC="$HOME/dots"
+
 ### pacman & shell
-bash "$FOO/ml4w/scripts/arch/pacman.sh"
-bash "$FOO/ml4w/scripts/shell.sh"
+bash "$DOTS/ml4w/scripts/arch/pacman.sh"
+bash "$DOTS/ml4w/scripts/shell.sh"
 
 ### Set keybindings
 cp "$SRC/hypr/conf/keybindings/lateralus.conf" "$HYPR/keybindings/"
 echo 'source = ~/.config/hypr/conf/keybindings/lateralus.conf' > "$HYPR/keybinding.conf"
 
 ### Wallpapers update ML4W
-rm -rf "$FOO/ml4w/wallpapers" && ln -s ~/Pictures/wallpapers  "$FOO/ml4w"
+rm -rf "$DOTS/ml4w/wallpapers" && ln -s ~/Pictures/wallpapers  "$DOTS/ml4w"
 
 ### HYPR
 # echo '' > "$FOO/hypr/"
-sed -i -e 's/480/4200/g' -e 's/600/5600/g' -e 's/660/5660/g' -e 's/1800/6000/g' "$FOO/hypr/hypridle.conf"
-sed -i -E 's/^([[:space:]]*)font_family([[:space:]]*=[[:space:]]*)?.*$/\1font_family = Monofur Nerd Font/' "$FOO/hypr/hyprlock.conf"
+sed -i -e 's/480/4200/g' -e 's/600/5600/g' -e 's/660/5660/g' -e 's/1800/6000/g' "$DOTS/hypr/hypridle.conf"
+sed -i -E 's/^([[:space:]]*)font_family([[:space:]]*=[[:space:]]*)?.*$/\1font_family = Monofur Nerd Font/' "$DOTS/hypr/hyprlock.conf"
 
 ### HYPR GUI configuration
 echo 'env = AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card2' >> "$HYPR/environments/nvidia.conf"
@@ -97,40 +101,40 @@ echo 'source = ~/.config/hypr/conf/monitors/1920x1080.conf' > "$HYPR/monitor.con
 echo 'source = ~/.config/hypr/conf/windows/no-border.conf' > "$HYPR/window.conf"
 
 ### Screenshot
-echo 'screenshot_folder="$HOME/Pictures/SC"' > "$FOO/ml4w/settings/screenshot-folder.sh"
-echo "swappy -f" > "$FOO/ml4w/settings/screenshot-editor.sh" && echo "thunar" > "$FOO/ml4w/settings/filemanager.sh"
+echo 'screenshot_folder="$HOME/Pictures/SC"' > "$DOTS/ml4w/settings/screenshot-folder.sh"
+echo "swappy -f" > "$DOTS/ml4w/settings/screenshot-editor.sh" && echo "thunar" > "$DOTS/ml4w/settings/filemanager.sh"
 
 ### Matugen
-rm -rf "$FOO/matugen" &&  cp -r "$SRC/matugen" "$FOO/"
+rm -rf "$DOTS/matugen" &&  cp -r "$SRC/matugen" "$DOTS"
 
 ### Waybar
-cp -r "$SRC/waybar/themes/lateralus" "$FOO/waybar/themes/"
-echo '/lateralus;/lateralus' > "$FOO/ml4w/settings/waybar-theme.sh"
+cp -r "$SRC/waybar/themes/lateralus" "$DOTS/waybar/themes/"
+echo '/lateralus;/lateralus' > "$DOTS/ml4w/settings/waybar-theme.sh"
 bash "$HOME/.config/waybar/launch.sh"
 
 ### ROFI in ml4w
-echo '* { border-radius: 0em; }' > "$FOO/ml4w/settings/rofi-border-radius.rasi"
-echo '* { border-width: 0px; }' > "$FOO/ml4w/settings/rofi-border.rasi"
+echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
+echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
 echo '0' > "$FOO/ml4w/settings/rofi_bordersize.sh"
-echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$FOO/ml4w/settings/rofi-font.rasi"
+echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 # ROFI in rofi
-find "$FOO/rofi/" -type f -exec sed -i 's/Fira Sans 11/Monofur Nerd Font 12/g' {} +
-rm -rf "FOO/rofi" && cp -r "$SRC/rofi" "$FOO"
+rm -rf "$DOTS/rofi" && cp -r "$SRC/rofi" "$DOTS"
+find "$DOTS/rofi/" -type f -exec sed -i 's/Fira Sans 11/Monofur Nerd Font 12/g' {} +
 
 ### Wlogout
-sed -i 's/Fira Sans Semibold/Monofur Nerd Font/g' "$FOO/wlogout/style.css"
+sed -i 's/Fira Sans Semibold/Monofur Nerd Font/g' "$DOTS/wlogout/style.css"
 
 ### Kitty
-rm -rf "$FOO/kitty" && cp -r "$SRC/kitty" "$FOO" && echo 'kitty' > "$FOO/ml4w/settings/terminal.sh"
+rm -rf "$DOTS/kitty" && cp -r "$SRC/kitty" "$DOTS" && echo 'kitty' > "$DOTS/ml4w/settings/terminal.sh"
 
 ### Fastfetch config
-rm -rf "$FOO/fastfetch" && cp -r "$SRC/fastfetch" "$FOO"
+rm -rf "$DOTS/fastfetch" && cp -r "$SRC/fastfetch" "$DOTS"
 
 ### CAVA
-mv "$HOME/.config/cava" "$FOO" && ln -s "$FOO/cava" "$HOME/.config"
+mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
 
 ### nVim
-rm -rf "$FOO/nvim" && cp -r "$SRC/nvim" "$FOO"
+rm -rf "$DOTS/nvim" && cp -r "$SRC/nvim" "$DOTS"
 
 
