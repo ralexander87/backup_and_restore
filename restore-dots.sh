@@ -71,10 +71,6 @@ ensure_pacman_packages \
 ### Delete flatpak app
 flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
 
-DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
-HYPR="$DOTS/hypr/conf"
-SRC="$HOME/dots"
-
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"
 bash "$DOTS/ml4w/scripts/shell.sh"
