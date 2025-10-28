@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USB="/run/media/ralexander/NC512/home"
-SRV="$USB/dots/Srv"
+SRV="$USB/Srv"
 DIRS=(Documents Pictures Obsidian Working Shared VM dots)
 
 for d in "${DIRS[@]}"; do

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SRV="$HOME/dots/Srv"
+SRV="$HOME/Srv"
 
 ##### Services #####
 set -u

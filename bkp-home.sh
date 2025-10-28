@@ -3,7 +3,7 @@
 set -e
 
 USB="/run/media/ralexander/NC512/home"
-SRV="$USB/dots/Srv"
+SRV="$USB/Srv"
 DIRS=(Documents Pictures Obsidian Working Shared VM)
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
 

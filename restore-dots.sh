@@ -115,7 +115,7 @@ bash "$HOME/.config/waybar/launch.sh"
 ### ROFI in ml4w
 echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
 echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
-echo '0' > "$FOO/ml4w/settings/rofi_bordersize.sh"
+echo '0' > "$DOTS/ml4w/settings/rofi_bordersize.sh"
 echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 # ROFI in rofi
