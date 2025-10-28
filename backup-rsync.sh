@@ -1,5 +1,3 @@
-```bash
-<!-- backup-rsync.sh -->
 #!/bin/bash
 set -e  # Exit before you get fucked...
 
@@ -67,4 +65,3 @@ echo "Uncompressed folder: $BKP_FOLDER"
 echo "Compressed archive : $BKP_TAR"
 echo "------------------------------------------------------------------------------------"
 
-```
