@@ -1,8 +1,7 @@
 #!/bin/bash
 
 USB="/run/media/ralexander/netac"
-SRV="$USB/Srv"
-DIRS=(Documents Pictures Obsidian Working Shared VM dots)
+DIRS=(Documents Pictures Obsidian Working Shared VM dots .icons .themes)
 
 
 #### Check for installed
@@ -57,7 +56,7 @@ ensure_pacman_packages \
   rsync
 
 for d in "${DIRS[@]}"; do
-  rsync -Parh "$USB/home/$d" "$HOME" && cp -r "$SRV" "$HOME" && cp -r "$USB/dots" "$HOME" && cp "$USB/*.sh" "$HOME/dots"
+  rsync -Parh "$USB/home/$d" "$HOME" && cp -r "$USB/Srv" "$HOME" && cp -r "$USB/dots" "$HOME" && cp "$USB/*.sh" "$HOME/dots"
 done
 sleep 5 ; clear
 
