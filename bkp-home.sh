@@ -2,18 +2,21 @@
 
 set -e
 
-USB="/run/media/ralexander/NC512/home"
+USB="/run/media/ralexander/netac" # Make sure that name is: netac
 SRV="$USB/Srv"
 DIRS=(Documents Pictures Obsidian Working Shared VM)
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
+# mkdir -p $USB/{home,dots,Srv}
+
+
 
 for d in "${DIRS[@]}"; do
-  rsync -Parh "$HOME/$d" "$USB"
+  rsync -Parh "$HOME/$d" "$USB/home"
 done
 
 rsync -Parh "$DOTS" "$USB/dots/"
 rsync -Prah "$HOME/.ssh" "$SRV"
-cp ~/Working/bash/restore-home.sh "$USB"
+cp ~/Working/bash/restore-home.sh "$USB/home"
 cp ~/Working/bash/restore-zshrc.sh "$USB/dots"
 cp ~/Working/bash/restore-dots.sh "$USB/dots"
 cp ~/Working/bash/restore-serv.sh "$SRV"
