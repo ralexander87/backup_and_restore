@@ -113,6 +113,7 @@ echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
 echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
 echo '0' > "$DOTS/ml4w/settings/rofi_bordersize.sh"
 echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
+rm -rf "$DOTS/rofi" ; cp -r "$SRC/rofi"
 
 # ROFI in rofi
 rm -rf "$DOTS/rofi" && cp -r "$SRC/rofi" "$DOTS"
