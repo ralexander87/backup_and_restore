@@ -4,8 +4,9 @@ set -e
 
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
 SRV="$USB/Srv"
-DIRS=(Documents Pictures Obsidian Working Shared VM)
+DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes .ssh)
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
+
 # mkdir -p $USB/{home,dots,Srv}
 
 
