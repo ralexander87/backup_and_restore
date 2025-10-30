@@ -11,7 +11,6 @@ mv "$USB/restore-grub.sh" "$USB/Srv/"
 mv "$USB/restore-dots.sh" "$USB/dots/"
 mv "$USB/restore-app.sh" "$USB"
 
-
 ### Run bkp-home.sh
 
 target="${USB}/bkp-home.sh"

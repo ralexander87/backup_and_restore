@@ -3,7 +3,7 @@
 USB="/run/media/ralexander/netac"
 DIRS=(Documents Pictures Obsidian Working Shared VM dots .icons .themes)
 
-##### PRE INSTALL TODO
+##### PRE RESTORE TODO
 ### SDDM Autologin user: ralexander
 sudo sed -i '/^User=/s//User=ralexander/' /usr/lib/sddm/sddm.conf.d/default.conf
 
