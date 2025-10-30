@@ -1,18 +1,30 @@
 #!/bin/bash
 
-set -e  # Exit before you get fucked...
+set -e
 echo "------------------------------------------------------------------------------------"
 
-# === SMTH, SMTH ===
 TIMESTAMP=$(date '+%j-%Y-%R')
 BKP_BASE="$HOME/Shared/ArchBKP"
 BKP_FOLDER="$BKP_BASE/$TIMESTAMP"
 BKP_TAR="$BKP_BASE/$TIMESTAMP.tar.xz"
 
+##### Install pigz if is not...
+if ! command -v pigz >/dev/null 2>&1; then
+  echo "pigz not found, installing..."
+  if [[ $EUID -ne 0 ]]; then
+    sudo pacman -S --noconfirm pigz
+  else
+    pacman -S --noconfirm pigz
+  fi
+else
+  echo "pigz already installed, continuing..."
+fi
+
+### Start BKP
 mkdir -p "$BKP_FOLDER"
 echo "Starting fucking BKP to: $BKP_FOLDER"
 
-# === System files (with sudo) ===
+##### System files (with sudo)
 declare -A SYSTEM_PATHS=(
     ["/boot/grub/themes/lateralus"]="$BKP_FOLDER"
     ["/etc/mkinitcpio.conf"]="$BKP_FOLDER/mkinitcpio.conf"
@@ -28,7 +40,7 @@ for src in "${!SYSTEM_PATHS[@]}"; do
     sudo rsync -a "$src" "${SYSTEM_PATHS[$src]}"
 done
 
-# === User files ===
+##### User files
 USER_PATHS=(
     "$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
     "$HOME/.themes"
@@ -44,19 +56,8 @@ for path in "${USER_PATHS[@]}"; do
     rsync -a "$path" "$BKP_FOLDER/"
 done
 
-# Install pigz if is not...
-if ! command -v pigz >/dev/null 2>&1; then
-  echo "pigz not found, installing..."
-  if [[ $EUID -ne 0 ]]; then
-    sudo pacman -S --noconfirm pigz
-  else
-    pacman -S --noconfirm pigz
-  fi
-else
-  echo "pigz already installed, continuing..."
-fi
 
-# === Start bully the backup ===
+##### Start bully the backup
 echo "Compressing backup..."
 tar -I pigz -cf "$BKP_TAR" -C "$BKP_BASE" "$TIMESTAMP"
 

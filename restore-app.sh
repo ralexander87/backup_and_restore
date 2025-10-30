@@ -1,20 +1,16 @@
 #!/bin/bash
 
-USB="/run/media/ralexander/netac"
-DIRS=(Documents Pictures Obsidian Working Shared VM dots .icons .themes)
-
-
-#### Check for installed
+# (optional) leave -e off so errors here don't kill the whole script
 set -u
 
 ensure_pacman_packages() {
-# Accept packages as arguments or fall back to a default list
+# PKG as arguments or fall back to a default list
   local pkgs=("$@")
   if ((${#pkgs[@]} == 0)); then
-    pkgs=(rsync)
+    pkgs=(obsidian bat eza 7zip unzip dosfstools bitwarden veracrypt exfat-utils gnome-disk-utility gvfs-smb gvfs-wsdd btop ntfs-3g plymouth polkit smbclient gimp)
   fi
 
-# Use sudo if not root
+##### Use sudo if not root
   local SUDO=""
   if [[ $EUID -ne 0 ]]; then
     if command -v sudo >/dev/null 2>&1; then
@@ -26,7 +22,7 @@ ensure_pacman_packages() {
   fi
 
   local missing=()
-  echo "Checking installed packages..."
+  echo "Checking installed..."
   for pkg in "${pkgs[@]}"; do
     if pacman -Q "$pkg" >/dev/null 2>&1; then
       echo "✓ $pkg is installed. Skipping."
@@ -37,13 +33,13 @@ ensure_pacman_packages() {
   done
 
   if ((${#missing[@]} == 0)); then
-    echo "All already installed."
+    echo "Already installed."
     return 0
   fi
 
   echo "Installing missing: ${missing[*]}"
   if ! $SUDO pacman -S --needed --noconfirm "${missing[@]}"; then
-    echo "Package installation failed."
+    echo "Installation failed."
     return 1
   fi
 
@@ -51,12 +47,7 @@ ensure_pacman_packages() {
   return 0
 }
 
-# --- use it like this ---
+##### Use it like this
 ensure_pacman_packages \
-  rsync
-
-for d in "${DIRS[@]}"; do
-  rsync -Parh "$USB/home/$d" "$HOME" && cp -r "$USB/Srv" "$HOME" && cp -r "$USB/dots" "$HOME" && cp "$USB/*.sh" "$HOME/dots"
-done
-sleep 5 ; clear
+obsidian bat eza 7zip unzip dosfstools bitwarden veracrypt exfat-utils gnome-disk-utility gvfs-smb gvfs-wsdd btop ntfs-3g plymouth polkit smbclient gimp
 
