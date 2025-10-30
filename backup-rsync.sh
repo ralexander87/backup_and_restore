@@ -56,7 +56,6 @@ for path in "${USER_PATHS[@]}"; do
     rsync -a "$path" "$BKP_FOLDER/"
 done
 
-
 ##### Start bully the backup
 echo "Compressing backup..."
 tar -I pigz -cf "$BKP_TAR" -C "$BKP_BASE" "$TIMESTAMP"

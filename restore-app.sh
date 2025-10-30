@@ -10,7 +10,7 @@ ensure_pacman_packages() {
     pkgs=(obsidian bat eza 7zip unzip dosfstools bitwarden veracrypt exfat-utils gnome-disk-utility gvfs-smb gvfs-wsdd btop ntfs-3g plymouth polkit smbclient gimp)
   fi
 
-##### Use sudo if not root
+### Use sudo if not root
   local SUDO=""
   if [[ $EUID -ne 0 ]]; then
     if command -v sudo >/dev/null 2>&1; then
@@ -47,7 +47,7 @@ ensure_pacman_packages() {
   return 0
 }
 
-##### Use it like this
+### Use it like this
 ensure_pacman_packages \
 obsidian bat eza 7zip unzip dosfstools bitwarden veracrypt exfat-utils gnome-disk-utility gvfs-smb gvfs-wsdd btop ntfs-3g plymouth polkit smbclient gimp
 

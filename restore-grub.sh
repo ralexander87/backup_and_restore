@@ -1,13 +1,11 @@
 #!/bin/bash
 
-set -euo pipefail
-
-##### One night stay variable...
 USB="/run/media/ralexander/netac"
 SRV="$USB/Srv"
 GRUB="/etc/default/grub"
 GRUB_THEME_DIR="/boot/grub/themes"
 
+set -euo pipefail
 # Functions. Fancy looking color shit... 
 info() { echo -e "\033[1;34m[INFO]\033[0m $1"; }
 error_exit() { echo -e "\033[1;31m[ERROR]\033[0m $1" >&2; exit 1; }

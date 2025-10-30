@@ -17,7 +17,7 @@ cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB"
 echo "Copy Done..."
 sleep 5 ; clear
 
-##### System files (with sudo)
+### System files (with sudo)
 declare -A SYSTEM_PATHS=(
   ["/boot/grub/themes/lateralus"]="$SRV"
   ["/etc/mkinitcpio.conf"]="$SRV/mkinitcpio.conf"

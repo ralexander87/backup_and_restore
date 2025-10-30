@@ -2,9 +2,7 @@
 
 SRV="$HOME/Srv"
 
-##### Services
 set -u
-
 ensure_pacman_packages() {
 # PKG as arguments or fall back to a default list
   local pkgs=("$@")
@@ -49,22 +47,28 @@ ensure_pacman_packages() {
   return 0
 }
 
-##### Use it like this
+### Use it like this
 ensure_pacman_packages \
   rsync openssh avahi wsdd smbclient gvfs gvfs-smb cifs-utils
 
-
-##### SMB/SAMBA
+### SMB/SAMBA
 sudo modprobe cifs
-sudo cp "$SRV/smb.conf" "/etc/samba"
+sudo cp "$SRV/smb.conf" "/etc/samba/"
 sudo systemctl enable wsdd.service smb.service avahi-daemon.service nmb.service && sudo systemctl start wsdd.service smb.service avahi-daemon.service nmb.service
 
-##### SSH
+sudo mkdir -m 1750 /SMB
+sudo mkdir /SMB/{euclid,pneuma,SCP}
+sudo chown -R ralexander:ralexander /SMB
+
+# sudo smbpasswd -a ralexander
+sudo systemctl restart wsdd.service smb.service avahi-daemon.service nmb.service
+
+### SSH
 rsync -Parh "$SRV/.ssh/" "$HOME/.ssh"
+sudo mv "/etc/ssh/sshd_config{,.bkp}" && sudo cp "$SRV/sshd_config" "/etc/ssh/"
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 chmod 644 ~/.ssh/*.pub
 chmod 600 ~/.ssh/config
-sudo mv "/etc/ssh/sshd_config{,.bkp}" && sudo cp "$SRV/sshd_config" "/etc/ssh"
 sudo systemctl enable sshd.service && sudo systemctl start sshd.service
 
