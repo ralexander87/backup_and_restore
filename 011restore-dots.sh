@@ -134,4 +134,3 @@ mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
 ### nVim
 rm -rf "$DOTS/nvim" && cp -r "$SRC/nvim" "$DOTS"
 
-

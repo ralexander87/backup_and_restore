@@ -9,18 +9,16 @@ DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
 
 # mkdir -p $USB/{home,dots,Srv}
 
-
-
 for d in "${DIRS[@]}"; do
   rsync -Parh "$HOME/$d" "$USB/home"
 done
 
 rsync -Parh "$DOTS" "$USB/dots/"
 rsync -Prah "$HOME/.ssh" "$SRV"
-cp ~/Working/bash/restore-home.sh "$USB/home"
-cp ~/Working/bash/restore-zshrc.sh "$USB/dots"
-cp ~/Working/bash/restore-dots.sh "$USB/dots"
-cp ~/Working/bash/restore-serv.sh "$SRV"
+cp ~/Working/bash/003restore-home.sh "$USB/home" && chmod +x "$USB/home/003restore-home.sh"
+cp ~/Working/bash/restore-zshrc.sh "$USB/dots" && chmod +x "$USB/dots/restore-zshrc.sh"
+cp ~/Working/bash/011restore-dots.sh "$USB/dots" && chmod +x "$USB/dots/011restore-dots.sh"
+cp ~/Working/bash/004restore-serv.sh "$SRV" && chmod +x "$SRV/004restore-serv.sh"
 
 echo "Copy Done..."
 sleep 5 ; clear

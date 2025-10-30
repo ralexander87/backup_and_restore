@@ -31,5 +31,5 @@ sed -i \
   "$GRUB"
 
 # Update fucking GRUB
-info "Updating GRUB config..."
+echo "Updating GRUB config..."
 grub-mkconfig -o /boot/grub/grub.cfg

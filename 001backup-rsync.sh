@@ -1,6 +1,6 @@
 #!/bin/bash
-set -e  # Exit before you get fucked...
 
+set -e  # Exit before you get fucked...
 echo "------------------------------------------------------------------------------------"
 
 # === SMTH, SMTH ===
