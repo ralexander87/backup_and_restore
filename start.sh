@@ -8,6 +8,7 @@ chmod +x *.sh $USB
 
 mv "$USB/restore-serv.sh" "$USB/Srv" ; mv "$USB/restore-grub.sh" "$USB/Srv"
 mv "$USB/restore-dots.sh" "$USB/dots" ; mv "$USB/restore-app.sh" "$USB/dots"
+mv "$USB/manual-ml4w.sh" "$USB/dots" ; mv "$USB/manual-ml4w.sh" "$USB/dots"
 
 ### Run bkp-home.sh
 
