@@ -1,18 +1,18 @@
 #!/bin/bash
 
-USB="/run/media/ralexander/netac"
-SRV="$USB/Srv"
-GRUB="/etc/default/grub"
+SRV="$HOME/Srv"
+GRUB="/etc/default"
 GRUB_THEME_DIR="/boot/grub/themes"
 
 set -euo pipefail
+
 # Functions. Fancy looking color shit... 
 info() { echo -e "\033[1;34m[INFO]\033[0m $1"; }
 error_exit() { echo -e "\033[1;31m[ERROR]\033[0m $1" >&2; exit 1; }
 
 # Ensure script is run with zero fuck...
 if [[ $EUID -ne 0 ]]; then
-  error_exit "This script must be run as root (use sudo)."
+  error_exit "Sudo ?!?"
 fi
 
 # Copy GRUB theme...
@@ -26,8 +26,8 @@ sed -i \
   -e 's|^GRUB_GFXMODE=auto|GRUB_GFXMODE=1440x1080x32|' \
   -e 's|^GRUB_CMDLINE_LINUX_DEFAULT="[^"]*"|GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash"|' \
   -e "s|^#GRUB_THEME=.*|GRUB_THEME=$GRUB_THEME_DIR/lateralus/theme.txt|" \
-  "$GRUB"
+  "$GRUB/grub"
 
 # Update fucking GRUB
-echo "Updating GRUB config..."
+echo "Updating GRUB..."
 grub-mkconfig -o /boot/grub/grub.cfg

@@ -10,9 +10,10 @@ for d in "${DIRS[@]}"; do
   rsync -Parh "$HOME/$d" "$USB/home"
 done
 
-rsync -Parh "$DOTS" "$USB/dots/"
+rm -rf "$HOME/.ssh/agent"
 rsync -Prah "$HOME/.ssh" "$SRV"
-cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB"
+rsync -Parh "$DOTS" "$USB/dots/"
+cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB/dots"
 
 echo "Copy Done..."
 sleep 5 ; clear

@@ -5,7 +5,9 @@ HYPR="$DOTS/hypr/conf"
 SRC="$HOME/dots"
 
 ##### PRE INSTALL TODO
+
 ### Install yay
+## ml4w will autoinstall if not...
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 
 ### Font install NerdFont 3.4.0
@@ -21,7 +23,7 @@ ensure_pacman_packages() {
     pkgs=(flatpak pigz cava rsync swappy openssh)
   fi
 
-### Use sudo if not root
+### sudo if not root
   local SUDO=""
   if [[ $EUID -ne 0 ]]; then
     if command -v sudo >/dev/null 2>&1; then
@@ -69,14 +71,16 @@ clear
 # flatpak run com.ml4w.dotfilesinstaller
 # https://raw.githubusercontent.com/mylinuxforwork/dotfiles/main/hyprland-dotfiles-stable.dotinst
 
-### Delete flatpak app's not using
+### Delete flatpak app's not using...
 flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
 
 ### Disable ml4w dock
 touch "$DOTS/ml4w/settings/dock-disabled"
 
 ### restore hyprctl settings
-cp "$USB/hyprctl.json" "$HOME/.config/com.ml4w.hyprlandsettings/"
+## run ml4w settings to create main dir location
+## ~/config/com.ml4w.hyprlandsettings/
+cp "$SRC/hyprctl.json" "$DOTS/home"
 
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"
@@ -88,7 +92,7 @@ echo 'source = ~/.config/hypr/conf/keybindings/lateralus.conf' > "$HYPR/keybindi
 
 ### Wallpapers update ML4W
 rm -rf "$DOTS/ml4w/wallpapers" && ln -s ~/Pictures/wallpapers "$DOTS/ml4w"
-bash "$DOTS/hypr/scripts/wallpaper.sh"
+# bash "$DOTS/hypr/scripts/wallpaper.sh" # TODO re-check why is wrong =/
 
 ### HYPR
 # echo '' > "$FOO/hypr/"
@@ -109,7 +113,7 @@ echo 'screenshot_folder="$HOME/Pictures/SC"' > "$DOTS/ml4w/settings/screenshot-f
 echo "swappy -f" > "$DOTS/ml4w/settings/screenshot-editor.sh" && echo "thunar" > "$DOTS/ml4w/settings/filemanager.sh"
 
 ### Matugen
-rm -rf "$DOTS/matugen" &&  cp -r "$SRC/matugen" "$DOTS"
+rm -rf "$DOTS/matugen" && cp -r "$SRC/matugen" "$DOTS"
 
 ### Waybar
 cp -r "$SRC/waybar/themes/lateralus" "$DOTS/waybar/themes/"
@@ -121,7 +125,6 @@ echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
 echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
 echo '0' > "$DOTS/ml4w/settings/rofi_bordersize.sh"
 echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
-rm -rf "$DOTS/rofi" ; cp -r "$SRC/rofi"
 
 ### ROFI in rofi
 rm -rf "$DOTS/rofi" && cp -r "$SRC/rofi" "$DOTS"
