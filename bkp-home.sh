@@ -3,7 +3,7 @@
 set -e
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
 SRV="$USB/Srv"
-DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes .ssh)
+DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
 
 for d in "${DIRS[@]}"; do
@@ -14,6 +14,8 @@ rm -rf "$HOME/.ssh/agent"
 rsync -Prah "$HOME/.ssh" "$SRV"
 rsync -Parh "$DOTS" "$USB/dots/"
 cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB/dots"
+
+cp -r "$HOME/.local/share/icons/LyraX-cursors" "$USB/home"
 
 echo "Copy Done..."
 sleep 5 ; clear
