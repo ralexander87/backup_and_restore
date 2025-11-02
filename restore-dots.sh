@@ -14,7 +14,7 @@ ensure_pacman_packages() {
 # PKG as arguments or fall back to a default list
   local pkgs=("$@")
   if ((${#pkgs[@]} == 0)); then
-    pkgs=(flatpak pigz cava rsync swappy openssh)
+    pkgs=(pigz cava swappy)
   fi
 
 ### sudo if not root
@@ -56,9 +56,8 @@ ensure_pacman_packages() {
 
 ### Use it like this
 ensure_pacman_packages \
-  flatpak pigz cava rsync swappy openssh
+  pigz cava swappy
 clear
-
 
 ### Disable ml4w dock
 ## TODO: Won't update for some reason!!!
@@ -111,11 +110,11 @@ bash "$HOME/.config/waybar/launch.sh"
 echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
 echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
 echo '0' > "$DOTS/ml4w/settings/rofi_bordersize.sh"
-echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 ### ROFI in rofi
 rm -rf "$DOTS/rofi" && cp -r "$SRC/rofi" "$DOTS"
 find "$DOTS/rofi/" -type f -exec sed -i 's/Fira Sans 11/Monofur Nerd Font 12/g' {} +
+echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 ### Wlogout
 sed -i 's/Fira Sans Semibold/Monofur Nerd Font/g' "$DOTS/wlogout/style.css"
@@ -126,13 +125,16 @@ rm -rf "$DOTS/kitty" && cp -r "$SRC/kitty" "$DOTS" && echo 'kitty' > "$DOTS/ml4w
 ### Fastfetch config
 rm -rf "$DOTS/fastfetch" && cp -r "$SRC/fastfetch" "$DOTS"
 
+### ZSHRC
+rm -rf "$DOTS/zshrc" && cp -r "$SRC/zshrc" "$DOTS"
+
 ### CAVA
 mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
 
 ### nVim
 rm -rf "$DOTS/nvim" && cp -r "$SRC/nvim" "$DOTS" # Launch nVim to complete setup
 
-### GTK
+### GTK 3&4
 rm -rf "$DOTS/gtk-3.0" && cp -r "$SRC/gtk-3.0" "$DOTS"
 rm -rf "$DOTS/gtk-4.0" && cp -r "$SRC/gtk-4.0" "$DOTS"
 
