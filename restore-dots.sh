@@ -4,6 +4,7 @@ DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
 HYPR="$DOTS/hypr/conf"
 SRC="$HOME/dots"
 
+
 ### Font install NerdFont 3.4.0
 bash "$HOME/Shared/fonts/install.sh" ; sleep 3 ; clear
 
@@ -67,10 +68,12 @@ touch "$DOTS/ml4w/settings/dock-disabled"
 ## run ml4w settings to create main dir location
 ## ~/config/com.ml4w.hyprlandsettings/
 cp "$SRC/hyprctl.json" "$DOTS/home"
+mkdir -p "$HOME/.local/share/icons" && mv "$HOME/home/LyraX-cursors" "$HOME/.local/share/icons"
 
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"
 bash "$DOTS/ml4w/scripts/shell.sh"
+
 
 ### Set keybindings
 cp "$SRC/hypr/conf/keybindings/lateralus.conf" "$HYPR/keybindings/"
@@ -104,17 +107,17 @@ rm -rf "$DOTS/matugen" && cp -r "$SRC/matugen" "$DOTS"
 ### Waybar
 cp -r "$SRC/waybar/themes/lateralus" "$DOTS/waybar/themes/"
 echo '/lateralus;/lateralus' > "$DOTS/ml4w/settings/waybar-theme.sh"
-bash "$HOME/.config/waybar/launch.sh"
+# bash "$HOME/.config/waybar/launch.sh"
 
 ### ROFI in ml4w
 echo '* { border-radius: 0em; }' > "$DOTS/ml4w/settings/rofi-border-radius.rasi"
 echo '* { border-width: 0px; }' > "$DOTS/ml4w/settings/rofi-border.rasi"
 echo '0' > "$DOTS/ml4w/settings/rofi_bordersize.sh"
+echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 ### ROFI in rofi
 rm -rf "$DOTS/rofi" && cp -r "$SRC/rofi" "$DOTS"
 find "$DOTS/rofi/" -type f -exec sed -i 's/Fira Sans 11/Monofur Nerd Font 12/g' {} +
-echo 'configuration { font: "Monofur Nerd Font 12"; }' > "$DOTS/ml4w/settings/rofi-font.rasi"
 
 ### Wlogout
 sed -i 's/Fira Sans Semibold/Monofur Nerd Font/g' "$DOTS/wlogout/style.css"

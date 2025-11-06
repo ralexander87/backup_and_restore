@@ -1,8 +1,8 @@
 #!/bin/bash
 
-
 ### if git,curl,wget are installed, will skip
 set -u
+
 ensure_pacman_packages() {
 # PKG as arguments or fall back to a default list
   local pkgs=("$@")
@@ -58,7 +58,7 @@ sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/ya
 
 ##### ML4W SETUP #####
 
-flatpak install flathub com.ml4w.dotfilesinstaller
+bash flatpak install flathub com.ml4w.dotfilesinstaller
 
 ### run dotfileinstaller by hand
 # flatpak run com.ml4w.dotfilesinstaller
