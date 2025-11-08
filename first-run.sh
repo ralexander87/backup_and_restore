@@ -10,7 +10,7 @@ sleep 3
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 sleep 5
 
-bash flatpak install flathub com.ml4w.dotfilesinstaller
+flatpak install flathub com.ml4w.dotfilesinstaller
 sleep 3
 
 flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
