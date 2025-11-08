@@ -1,5 +1,7 @@
 #!/bin/bash
 
+flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
+
 # (optional) leave -e off so errors here don't kill the whole script
 set -u
 

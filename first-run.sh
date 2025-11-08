@@ -13,8 +13,6 @@ sleep 5
 flatpak install flathub com.ml4w.dotfilesinstaller
 sleep 3
 
-flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
-
 sudo sed -i '/^User=/s//User=ralexander/' /usr/lib/sddm/sddm.conf.d/default.conf
 sleep 3
 
