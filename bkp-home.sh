@@ -2,9 +2,9 @@
 
 set -e
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
-SRV="$USB/Srv"
-DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
+DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
+SRV="$USB/Srv"
 
 for d in "${DIRS[@]}"; do
   rsync -Parh "$HOME/$d" "$USB/home"

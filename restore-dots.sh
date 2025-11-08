@@ -60,15 +60,12 @@ ensure_pacman_packages \
   pigz cava swappy
 clear
 
-### Disable ml4w dock
-## TODO: Won't update for some reason!!!
-touch "$DOTS/ml4w/settings/dock-disabled"
 
 ### restore hyprctl settings
 ## run ml4w settings to create main dir location
 ## ~/config/com.ml4w.hyprlandsettings/
 cp "$SRC/hyprctl.json" "$DOTS/home"
-mkdir -p "$HOME/.local/share/icons" && mv "$HOME/home/LyraX-cursors" "$HOME/.local/share/icons"
+
 
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"

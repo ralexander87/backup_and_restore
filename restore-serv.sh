@@ -64,13 +64,6 @@ sudo chown -R ralexander:ralexander /SMB
 sudo systemctl restart wsdd.service smb.service avahi-daemon.service nmb.service
 
 ### SSH
-rsync -Parh "$SRV/.ssh/" "$HOME/.ssh"
-sudo mv "/etc/ssh/sshd_config{,.bkp}" && sudo cp "$SRV/sshd_config" "/etc/ssh/"
-
-# ensure proper chmod are set
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/*
-chmod 644 ~/.ssh/*.pub
-chmod 600 ~/.ssh/config
+sudo cp "$SRV/sshd_config" "/etc/ssh"
 sudo systemctl enable sshd.service && sudo systemctl start sshd.service
 

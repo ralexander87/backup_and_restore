@@ -7,7 +7,7 @@ ensure_pacman_packages() {
 # PKG as arguments or fall back to a default list
   local pkgs=("$@")
   if ((${#pkgs[@]} == 0)); then
-    pkgs=(obsidian bitwarden veracrypt base eza 7zip unzip dosfstools exfat-utils gnome-disk-utility gnome-text-editor man-db man-pages gvfs-smb gvfs-wsdd ntfs-3g plymouth polkit smbclient gimp)
+    pkgs=(obsidian bitwarden veracrypt base eza 7zip unzip dosfstools exfat-utils gnome-disk-utility gnome-text-editor man-db man-pages gvfs-smb gvfs-wsdd ntfs-3g plymouth polkit smbclient gimp pigz cava swappy rsync)
   fi
 
 ### Use sudo if not root
@@ -49,4 +49,4 @@ ensure_pacman_packages() {
 
 ### Use it like this
 ensure_pacman_packages \
-obsidian bitwarden veracrypt base eza 7zip unzip dosfstools exfat-utils gnome-disk-utility gnome-text-editor man-db man-pages gvfs-smb gvfs-wsdd ntfs-3g plymouth polkit smbclient gimp
+obsidian bitwarden veracrypt base eza 7zip unzip dosfstools exfat-utils gnome-disk-utility gnome-text-editor man-db man-pages gvfs-smb gvfs-wsdd ntfs-3g plymouth polkit smbclient gimp pigz cava swappy rsync
