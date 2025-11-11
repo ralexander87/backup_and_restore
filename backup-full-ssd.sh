@@ -51,7 +51,6 @@ USER_PATHS=(
     "$HOME/.themes"
     "$HOME/.icons"
     "$HOME/.ssh"
-    "$HOME/.config"
     "$HOME/.local"
     "$HOME/.var"
 )

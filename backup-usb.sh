@@ -53,7 +53,7 @@ for src in "${!SYSTEM_PATHS[@]}"; do
 done
 
 # Separate restore scripts
-cp ~/Working/bash/restore-home.sh "$USB"
+cp ~/Working/bash/restore-main.sh "$USB"
 cp ~/Working/bash/restore-dots.sh "$USB/dots"
 cp ~/Working/bash/restore-grub.sh "$SRV"
 cp ~/Working/bash/restore-serv.sh "$SRV"

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Edit /etc/default/grub and regenerate config with:
-#   grub-mkconfig -o /boot/grub/grub.cfg
+# grub-mkconfig -o /boot/grub/grub.cfg
 
 set -euo pipefail
 

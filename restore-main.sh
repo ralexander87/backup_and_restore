@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This is script to first run when restoring
+# Will rsync home,dots,Srv folder to $HOME directory
+
 ### VAR
 USB="/run/media/ralexander/netac"
 DIRS=(Documents Pictures Obsidian Working Shared VM dots .icons .themes .ssh)
@@ -16,7 +19,7 @@ sudo sed -i '/^User=/s//User=ralexander/' /usr/lib/sddm/sddm.conf.d/default.conf
 sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && sleep 2
 
 ### flatpak dot-installer for ml4w
-flatpak install flathub com.ml4w.dotfilesinstaller && sleep 3
+flatpak install flathub com.ml4w.dotfilesinstaller && sleep 2
 
 mkdir -p "$HOME/.config/com.ml4w.hyprlandsettings"
 mkdir -p "$HOME/.local/share/icons"
