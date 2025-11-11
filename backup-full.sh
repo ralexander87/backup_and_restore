@@ -3,10 +3,8 @@
 set -e
 echo "------------------------------------------------------------------------------------"
 
-TIMESTAMP=$(date '+%j-%Y-%R')
-BKP_BASE="$HOME/Shared/ArchBKP"
-BKP_FOLDER="$BKP_BASE/$TIMESTAMP"
-BKP_TAR="$BKP_BASE/$TIMESTAMP.tar.xz"
+BKP_BASE="/run/media/ralexander/Lateralus"
+BKP_FOLDER="$BKP_BASE"
 
 ##### Install pigz if is not...
 if ! command -v pigz >/dev/null 2>&1; then
@@ -43,24 +41,27 @@ done
 ##### User files
 USER_PATHS=(
     "$HOME/Working"
+    "$HOME/Pictures"
+    "$HOME/Shared"
     "$HOME/Obsidian"
     "$HOME/Documents"
+    "$HOME/VM"
     "$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
     "$HOME/.themes"
     "$HOME/.icons"
     "$HOME/.ssh"
+    "$HOME/.config"
+    "$HOME/.local"
+    "$HOME/.var"
 )
 
 for path in "${USER_PATHS[@]}"; do
     echo "Backing up $path..."
-    rsync -a "$path" "$BKP_FOLDER/"
+    rsync -Prah --delete-after "$path" "$BKP_FOLDER/"
 done
-
-##### Start bully the backup
-echo "Compressing backup..."
-tar -I pigz -cf "$BKP_TAR" -C "$BKP_BASE" "$TIMESTAMP"
 
 echo "Bully complete."
 echo "Uncompressed folder: $BKP_FOLDER"
-echo "Compressed archive : $BKP_TAR"
 echo "------------------------------------------------------------------------------------"
+
+

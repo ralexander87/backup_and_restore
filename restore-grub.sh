@@ -1,12 +1,7 @@
 #!/bin/bash
 
-#!/usr/bin/env bash
-# Edit /etc/default/grub to set:
-# - GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash"
-# - GRUB_TERMINAL_OUTPUT=gfxterm (uncomment/fix odd "console" line too)
-# - GRUB_GFXMODE=1440x1080x32
-# - GRUB_THEME="/boot/grub/themes/lateralus/theme.txt"
-# Then rebuild the GRUB config.
+# Edit /etc/default/grub and regenerate config with:
+#   grub-mkconfig -o /boot/grub/grub.cfg
 
 set -euo pipefail
 
@@ -27,10 +22,8 @@ echo "Creating backup: $BACKUP"
 cp -a "$GRUB_DEFAULT_FILE" "$BACKUP"
 
 # Apply edits in-place
-# Notes:
-#  - Use | as sed delimiter to avoid escaping slashes in theme path
 #  - ^#? matches commented or uncommented variants
-#  - Also handle the odd '#GRUB_TERMINAL_OUTPUTconsole' line explicitly
+#  - Use | as delimiter to avoid escaping slashes
 sed -Ei \
   -e 's|^#?GRUB_CMDLINE_LINUX_DEFAULT=.*$|GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet splash"|' \
   -e 's|^#?GRUB_GFXMODE=.*$|GRUB_GFXMODE=1440x1080x32|' \
@@ -46,40 +39,16 @@ fi
 
 echo "Updated $GRUB_DEFAULT_FILE"
 
-# Rebuild grub configuration depending on distro
-rebuild_grub() {
-  if command -v update-grub >/dev/null 2>&1; then
-    # Debian/Ubuntu
-    update-grub
-    return
-  fi
+# Regenerate GRUB config using your command
+if ! command -v grub-mkconfig >/dev/null 2>&1; then
+  echo "Error: grub-mkconfig not found in PATH." >&2
+  exit 1
+fi
 
-  if command -v grub2-mkconfig >/dev/null 2>&1; then
-    # RHEL/Fedora family
-    # Try to resolve the correct target automatically
-    local cfg=""
-    if [[ -L /etc/grub2-efi.cfg ]]; then
-      cfg="$(readlink -f /etc/grub2-efi.cfg)"
-    elif [[ -L /etc/grub2.cfg ]]; then
-      cfg="$(readlink -f /etc/grub2.cfg)"
-    elif [[ -f /boot/grub2/grub.cfg ]]; then
-      cfg="/boot/grub2/grub.cfg"
-    elif [[ -d /boot/efi/EFI ]]; then
-      # Fallback guess for EFI systems (vendor dir may vary)
-      # This may not exist on every system, but is a reasonable default
-      cfg="$(find /boot/efi/EFI -maxdepth 2 -type f -name grub.cfg 2>/dev/null | head -n1)"
-    fi
+# Ensure target directory exists
+mkdir -p /boot/grub
 
-    if [[ -n "$cfg" ]]; then
-      grub2-mkconfig -o "$cfg"
-      return
-    fi
-  fi
+grub-mkconfig -o /boot/grub/grub.cfg
 
-  echo "Warning: Could not automatically rebuild GRUB config. Please run the appropriate command for your system (e.g., 'update-grub' or 'grub2-mkconfig -o /boot/grub2/grub.cfg')." >&2
-}
-
-rebuild_grub
-
-echo "Done."
+echo "Done: /boot/grub/grub.cfg rebuilt."
 

@@ -4,73 +4,17 @@ DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config"
 HYPR="$DOTS/hypr/conf"
 SRC="$HOME/dots"
 
-
-### Font install NerdFont 3.4.0
-bash "$HOME/Shared/fonts/install.sh" ; sleep 3 ; clear
-
-# (optional) leave -e off so errors here don't kill the whole script
-set -u
-
-ensure_pacman_packages() {
-# PKG as arguments or fall back to a default list
-  local pkgs=("$@")
-  if ((${#pkgs[@]} == 0)); then
-    pkgs=(pigz cava swappy)
-  fi
-
-### sudo if not root
-  local SUDO=""
-  if [[ $EUID -ne 0 ]]; then
-    if command -v sudo >/dev/null 2>&1; then
-      SUDO="sudo"
-    else
-      echo "Need root (sudo missing)... Skipping installed..."
-      return 1
-    fi
-  fi
-
-  local missing=()
-  echo "Checking installed packages..."
-  for pkg in "${pkgs[@]}"; do
-    if pacman -Q "$pkg" >/dev/null 2>&1; then
-      echo "✓ $pkg is installed... Skipping..."
-    else
-      echo "• $pkg not installed... Will install..."
-      missing+=("$pkg")
-    fi
-  done
-
-  if ((${#missing[@]} == 0)); then
-    echo "Already installed..."
-    return 0
-  fi
-
-  echo "Installing missing: ${missing[*]}"
-  if ! $SUDO pacman -S --needed --noconfirm "${missing[@]}"; then
-    echo "Installation failed..."
-    return 1
-  fi
-
-  echo "Package ensure step complete..."
-  return 0
-}
-
-### Use it like this
-ensure_pacman_packages \
-  pigz cava swappy
-clear
-
+### remove Pinta and ml4w calendar
+flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.ml4w.calendar && sleep 5 && clear
 
 ### restore hyprctl settings
 ## run ml4w settings to create main dir location
-## ~/config/com.ml4w.hyprlandsettings/
-cp "$SRC/hyprctl.json" "$DOTS/home"
-
+mkdir -p "$HOME/.config/com.ml4w.hyprlandsettings"
+cp -r "$SRC/hyprctl.json" "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json"
 
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"
 bash "$DOTS/ml4w/scripts/shell.sh"
-
 
 ### Set keybindings
 cp "$SRC/hypr/conf/keybindings/lateralus.conf" "$HYPR/keybindings/"
@@ -82,7 +26,7 @@ rm -rf "$DOTS/ml4w/wallpapers" && ln -s ~/Pictures/wallpapers "$DOTS/ml4w"
 
 ### HYPR
 # echo '' > "$FOO/hypr/"
-sed -i -e 's/480/4200/g' -e 's/600/5600/g' -e 's/660/5660/g' -e 's/1800/6000/g' "$DOTS/hypr/hypridle.conf"
+sed -i -e 's/480/5200/g' -e 's/600/5600/g' -e 's/660/5660/g' -e 's/1800/6000/g' "$DOTS/hypr/hypridle.conf"
 sed -i -E 's/^([[:space:]]*)font_family([[:space:]]*=[[:space:]]*)?.*$/\1font_family = Monofur Nerd Font/' "$DOTS/hypr/hyprlock.conf"
 
 ### HYPR GUI configuration
@@ -128,13 +72,18 @@ rm -rf "$DOTS/fastfetch" && cp -r "$SRC/fastfetch" "$DOTS"
 ### ZSHRC
 rm -rf "$DOTS/zshrc" && cp -r "$SRC/zshrc" "$DOTS"
 
-### CAVA
-mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
-
 ### nVim
 rm -rf "$DOTS/nvim" && cp -r "$SRC/nvim" "$DOTS" # Launch nVim to complete setup
 
 ### GTK 3&4
 rm -rf "$DOTS/gtk-3.0" && cp -r "$SRC/gtk-3.0" "$DOTS"
 rm -rf "$DOTS/gtk-4.0" && cp -r "$SRC/gtk-4.0" "$DOTS"
+
+### qt6
+rm -rf "$DOTS/qt6ct" && cp -r "$SRC/qt6ct" "$DOTS"
+
+### OhMyPost lateralus config
+
+### CAVA
+mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
 

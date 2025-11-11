@@ -1,30 +1,39 @@
 #!/bin/bash
 
+# Script who alos include `Home backup` script
+
+# Var
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
+SRV="$USB/Srv"
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
 DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
-SRV="$USB/Srv"
 
+# Add `chmod +x` to bash directory
+chmod +x *.sh "$HOME/Working/bash"
+
+# Create, if not, 3 main directory to $USB
 mkdir -p $USB/{home,dots,Srv}
-cp ~/Working/bash/*.sh "$USB"
-chmod +x *.sh "$USB"
-sleep 3
+sleep 2
 
 ### Run bkp
 set -e
 
+# rsync directories from `$DIRS` variable 
 for d in "${DIRS[@]}"; do
   rsync -Parh "$HOME/$d" "$USB/home"
 done
 
-sleep 3
+# Remove agent content from .ssh, and then rsync rest of content
+# rsync ml4w dotfiles
+sleep 2
 rm -rf "$HOME/.ssh/agent"
 rsync -Prah "$HOME/.ssh" "$SRV"
 rsync -Parh "$DOTS" "$USB/dots/"
 
-sleep 3
-cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB/dots"
+# Copy cursor pack and hyprctl settings
+sleep 2
 cp -r "$HOME/.local/share/icons/LyraX-cursors" "$USB/home"
+cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB/dots"
 
 echo "Copy Done..."
 sleep 5 ; clear
@@ -44,6 +53,11 @@ for src in "${!SYSTEM_PATHS[@]}"; do
   sudo rsync -a "$src" "${SYSTEM_PATHS[$src]}"
 done
 
+# Separate restore scripts
+cp ~/Working/bash/restore-home.sh "$USB"
+cp ~/Working/bash/restore-dots.sh "$USB/dots"
+cp ~/Working/bash/restore-home.sh "$USB/home"
+cp ~/Working/bash/restore-app.sh "$USB/home"
+cp ~/Working/bash/restore-grub.sh "$SRV"
+cp ~/Working/bash/restore-serv.sh "$SRV"
 sleep 2
-mv "$USB/restore-serv.sh" "$USB/Srv" ; mv "$USB/restore-grub.sh" "$USB/Srv"
-mv "$USB/restore-dots.sh" "$USB/dots" ; mv "$USB/restore-app.sh" "$USB/dots"
