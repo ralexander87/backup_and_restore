@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Script who alos include `Home backup` script
-
+### Script who alos include `Home backup` script
 # Var
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
 SRV="$USB/Srv"
@@ -56,8 +55,6 @@ done
 # Separate restore scripts
 cp ~/Working/bash/restore-home.sh "$USB"
 cp ~/Working/bash/restore-dots.sh "$USB/dots"
-cp ~/Working/bash/restore-home.sh "$USB/home"
-cp ~/Working/bash/restore-app.sh "$USB/home"
 cp ~/Working/bash/restore-grub.sh "$SRV"
 cp ~/Working/bash/restore-serv.sh "$SRV"
 sleep 2
