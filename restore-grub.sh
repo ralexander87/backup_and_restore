@@ -1,5 +1,10 @@
 #!/bin/bash
 
+THEME="$HOME/Srv/lateralus"
+GRUB_DEFAULT_FILE="/etc/default/grub"
+BACKUP="/etc/default/grub.bak.$(date +%Y%m%d-%H%M%S)"
+
+
 # Edit /etc/default/grub and regenerate config with:
 # grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -10,9 +15,6 @@ if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
   exec sudo -p "[sudo] password for %u: " "$0" "$@"
 fi
 
-GRUB_DEFAULT_FILE="/etc/default/grub"
-BACKUP="/etc/default/grub.bak.$(date +%Y%m%d-%H%M%S)"
-
 if [[ ! -f "$GRUB_DEFAULT_FILE" ]]; then
   echo "Error: $GRUB_DEFAULT_FILE not found." >&2
   exit 1
@@ -20,6 +22,7 @@ fi
 
 echo "Creating backup: $BACKUP"
 cp -a "$GRUB_DEFAULT_FILE" "$BACKUP"
+cp -r "$THEME" "/boot/grub/themes"
 
 # Apply edits in-place
 #  - ^#? matches commented or uncommented variants
@@ -47,8 +50,6 @@ fi
 
 # Ensure target directory exists
 mkdir -p /boot/grub
-
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "Done: /boot/grub/grub.cfg rebuilt."
-

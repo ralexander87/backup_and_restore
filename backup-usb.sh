@@ -33,6 +33,7 @@ rsync -Parh "$DOTS" "$USB/dots/"
 sleep 2
 cp -r "$HOME/.local/share/icons/LyraX-cursors" "$USB/home"
 cp "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json" "$USB/dots"
+cp "$HOME/.config/Thunar/uca.xml" "$USB/dots"
 
 echo "Copy Done..."
 sleep 5 ; clear
