@@ -1,11 +1,13 @@
 #!/bin/bash
 
 ### Script who alos include `Home backup` script
-# Var
+
+### Var
 USB="/run/media/ralexander/netac" # Make sure that name is: netac
 SRV="$USB/Srv"
 DOTS="$HOME/.mydotfiles/com.ml4w.dotfiles.stable/.config/"
-DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
+# DIRS=(Documents Pictures Obsidian Working Shared VM .icons .themes)
+DIRS=(Documents Pictures Obsidian Working Shared .icons .themes)
 
 # Add `chmod +x` to bash directory
 chmod +x *.sh "$HOME/Working/bash"
