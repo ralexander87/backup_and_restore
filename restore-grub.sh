@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THEME="$HOME/Srv/lateralus"
+THEME="home/ralexander/Srv/lateralus"
 GRUB_DEFAULT_FILE="/etc/default/grub"
 BACKUP="/etc/default/grub.bak.$(date +%Y%m%d-%H%M%S)"
 
@@ -48,8 +48,7 @@ if ! command -v grub-mkconfig >/dev/null 2>&1; then
   exit 1
 fi
 
-# Ensure target directory exists
-mkdir -p /boot/grub
+# re-generate grub.cfg
 grub-mkconfig -o /boot/grub/grub.cfg
 
 echo "Done: /boot/grub/grub.cfg rebuilt."

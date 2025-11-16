@@ -12,10 +12,6 @@ flatpak uninstall -y com.github.PintaProject.Pinta && flatpak uninstall -y com.m
 mkdir -p "$HOME/.config/com.ml4w.hyprlandsettings"
 cp -r "$SRC/hyprctl.json" "$HOME/.config/com.ml4w.hyprlandsettings/hyprctl.json"
 
-### pacman & shell
-bash "$DOTS/ml4w/scripts/arch/pacman.sh"
-bash "$DOTS/ml4w/scripts/shell.sh"
-
 ### Set keybindings
 cp "$SRC/hypr/conf/keybindings/lateralus.conf" "$HYPR/keybindings/"
 echo 'source = ~/.config/hypr/conf/keybindings/lateralus.conf' > "$HYPR/keybinding.conf"
@@ -86,4 +82,8 @@ rm -rf "$DOTS/qt6ct" && cp -r "$SRC/qt6ct" "$DOTS"
 
 ### CAVA
 mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
+
+### pacman & shell
+bash "$DOTS/ml4w/scripts/arch/pacman.sh"
+bash "$DOTS/ml4w/scripts/shell.sh"
 

@@ -29,7 +29,7 @@ read -r -d '' ENTRY1_COMMENT <<'EOF'
 # //<server_ip>/<share_name>   <mount_point>   cifs   <options>   0   0
 EOF
 read -r -d '' ENTRY1 <<'EOF'
-//192.168.8.40/pneumasmb   /SMB/pneuma   cifs   credentials=/etc/samba/creds-laptop,iocharset=utf8,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,nofail,x-systemd.automount   0   0
+//192.168.8.40/pneumasmb   /SMB/pneuma   cifs   username=pelican,password=fred321,iocharset=utf8,uid=1000,gid=1000,file_mode=0644,dir_mode=0755,nofail,x-systemd.automount   0   0
 EOF
 
 read -r -d '' ENTRY2_COMMENT <<'EOF'

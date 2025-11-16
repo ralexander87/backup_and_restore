@@ -4,7 +4,7 @@ set -e
 echo "------------------------------------------------------------------------------------"
 
 # replace BKP_BASE for other locatio
-BKP_BASE="/run/media/ralexander/Lateralus"
+BKP_BASE="/run/media/ralexander/Lateralus/BKP"
 BKP_FOLDER="$BKP_BASE"
 
 ##### Install pigz if is not...
