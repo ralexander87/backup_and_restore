@@ -79,9 +79,7 @@ rm -rf "$DOTS/gtk-4.0" && cp -r "$SRC/gtk-4.0" "$DOTS"
 rm -rf "$DOTS/qt6ct" && cp -r "$SRC/qt6ct" "$DOTS"
 
 ### OhMyPost lateralus config
-
-### CAVA
-mv "$HOME/.config/cava" "$DOTS" && ln -s "$DOTS/cava" "$HOME/.config"
+rm -rf "$DOTS/ohmyposh" && cp -r "$SRC/ohmyposh" "$DOTS"
 
 ### pacman & shell
 bash "$DOTS/ml4w/scripts/arch/pacman.sh"

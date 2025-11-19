@@ -28,8 +28,8 @@ done
 # rsync ml4w dotfiles
 sleep 2
 rm -rf "$HOME/.ssh/agent"
-rsync -Prah "$HOME/.ssh" "$SRV"
-rsync -Parh "$DOTS" "$USB/dots/"
+rsync -Parh "$HOME/.ssh" "$SRV"
+rsync -Parh "$DOTS" "$USB/dots"
 
 # Copy cursor pack and hyprctl settings
 sleep 2
