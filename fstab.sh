@@ -77,5 +77,3 @@ echo "Next steps:"
 echo "  - Make sure cifs-utils is installed (e.g., apt install cifs-utils or dnf install cifs-utils)."
 echo "  - Verify /etc/samba/creds-laptop exists and is readable only by root (chmod 600)."
 echo "  - Mount now with: sudo mount -a"
-
-
